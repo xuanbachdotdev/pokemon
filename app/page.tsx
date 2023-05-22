@@ -11,13 +11,13 @@ export default function Home() {
   const [nextOffset, setNextOffset] = useState<number>(20);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getPokemons = async (offset: number) => {
+  const getPokemons = async () => {
     setLoading(true);
     await axios
       .get("https://pokeapi.co/api/v2/pokemon", {
         params: {
           limit: 20,
-          offset: { offset },
+          offset: nextOffset,
         },
       })
       .then((res) => {
@@ -36,8 +36,7 @@ export default function Home() {
   };
 
   const handleLoadmore: () => void = () => {
-    setLoading(true);
-    getPokemons(nextOffset);
+    getPokemons();
   };
 
   useEffect(() => {
